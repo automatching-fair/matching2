@@ -20,5 +20,32 @@
   </table>
   <button onclick="addColumn()">오른쪽으로 확장</button>
   <button onclick="addRow()">아래로 확장</button>
+  <button onclick="startMatching()">매칭 시작</button> <!-- 새로운 '매칭 시작' 버튼 추가 -->
+  <script>
+    function startMatching() {
+      var table = document.getElementById("myTable");
+      var rowCount = table.rows.length;
+      var columnCount = table.rows[0].cells.length;
+
+      var firstRowValues = [];
+
+      // 1번 행의 값을 읽어와 firstRowValues 배열에 저장
+      for (var i = 1; i < columnCount; i++) {
+        firstRowValues.push(table.rows[1].cells[i].querySelector('input').value);
+      }
+
+      // 각 열의 마지막 행까지 1번 행의 값을 복사하여 채웁니다.
+      for (var i = 1; i < columnCount; i++) {
+        for (var j = 2; j < rowCount; j++) {
+          var cell = table.rows[j].cells[i];
+          var input = document.createElement('input');
+          input.type = 'text';
+          input.value = firstRowValues[i - 1];
+          cell.innerHTML = '';
+          cell.appendChild(input);
+        }
+      }
+    }
+  </script>
 </body>
 </html>
